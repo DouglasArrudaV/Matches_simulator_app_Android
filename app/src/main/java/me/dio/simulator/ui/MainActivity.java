@@ -1,5 +1,6 @@
 package me.dio.simulator.ui;
 
+import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 
@@ -65,13 +66,16 @@ public class MainActivity extends AppCompatActivity {
     // Fix this error
     private void setupFloatingActionButton() {
         binding.fabSimulate.setOnClickListener(view -> {
-            view.animate().rotationBy(360).setDuration(600).setListener((AnimatorListenerAdapter) (animation) -> {
-                Random random = new Random();
-                for (int i = 0; i < matchesAdapter.getItemCount(); i++) {
-                    Match match = matchesAdapter.getMatches().get(i);
-                    match.getHomeTeam().setScore(random.nextInt(match.getHomeTeam().getStars() + 1));
-                    match.getAwayTeam().setScore(random.nextInt(match.getAwayTeam().getStars() + 1));
-                    matchesAdapter.notifyItemChanged(i);
+            view.animate().rotationBy(360).setDuration(500).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    Random random = new Random();
+                    for (int i = 0; i < matchesAdapter.getItemCount(); i++) {
+                        Match match = matchesAdapter.getMatches().get(i);
+                        match.getHomeTeam().setScore(random.nextInt(match.getHomeTeam().getStars() + 1));
+                        match.getAwayTeam().setScore(random.nextInt(match.getAwayTeam().getStars() + 1));
+                        matchesAdapter.notifyItemChanged(i);
+                    }
                 }
             });
         });
