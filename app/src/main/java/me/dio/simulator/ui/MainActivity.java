@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         binding.srlMatches.setOnRefreshListener(this::findMatchesFromApi);
     }
 
+    // Fix this error
     private void setupFloatingActionButton() {
         binding.fabSimulate.setOnClickListener(view -> {
             view.animate().rotationBy(360).setDuration(600).setListener((AnimatorListenerAdapter) (animation) -> {
